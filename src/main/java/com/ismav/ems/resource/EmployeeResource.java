@@ -24,4 +24,14 @@ public class EmployeeResource {
         return repository.save(employeeInfo);
     }
 
+    @DeleteMapping("/employee/{id}")
+    private void deleteEmployee(@PathVariable Long id){
+        repository.deleteById(id);
+    }
+
+    @PatchMapping("/employee/{id}")
+    private void updateEmployee(@PathVariable Long id, @RequestBody EmployeeInfo employeeInfo){
+        repository.save(employeeInfo);
+    }
+
 }
