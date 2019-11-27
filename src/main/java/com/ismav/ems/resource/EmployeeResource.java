@@ -5,6 +5,8 @@ import com.ismav.ems.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/api/ems")
 public class EmployeeResource {
@@ -18,7 +20,7 @@ public class EmployeeResource {
     }
 
     @PostMapping("/employee")
-    private EmployeeInfo createEmployee(@RequestBody EmployeeInfo employeeInfo){
+    private EmployeeInfo createEmployee(@RequestBody @Valid EmployeeInfo employeeInfo){
         return repository.save(employeeInfo);
     }
 

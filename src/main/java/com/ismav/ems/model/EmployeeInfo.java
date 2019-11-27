@@ -1,9 +1,7 @@
 package com.ismav.ems.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,14 +12,18 @@ public class EmployeeInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long employeeId;
 
+    @NotBlank(message = "First Name can't be null")
     private String employeeFirstName;
 
     private String employeeMiddleName;
 
+    @NotBlank(message = "Last Name can't be null")
     private String employeeLastName;
 
+    @NotBlank(message = "Company Name can't be null")
     private String employeeCompany;
 
+    @NotBlank(message = "Designation can't be null")
     private String employeeDesignation;
 
     public Long getEmployeeId() {
