@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface EmployeeService {
-    EmployeeInfo createEmployee(EmployeeInfo employeeInfo);
-    EmployeeInfo updateEmployee(EmployeeInfo employeeInfo, Long id);
+    EmployeeInfo createEmployee(EmployeeInfo employeeInfo) throws Exception;
+    EmployeeInfo updateEmployee(EmployeeInfo employeeInfo, Long id) throws Exception;
     EmployeeInfo retrieveEmployee(Long id);
     List<EmployeeInfo> retrieveAll();
-    ResponseEntity<Object> deleteEmployee(Long id);
+    ResponseEntity<Object> deleteEmployee(Long id) throws Exception;
 }
