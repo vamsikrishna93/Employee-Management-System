@@ -3,6 +3,8 @@ package com.ismav.ems.service;
 import com.ismav.ems.model.EmployeeInfo;
 import com.ismav.ems.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,7 +50,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Long id) {
+    public ResponseEntity<Object> deleteEmployee(Long id) {
         repository.deleteById(id);
+        return new ResponseEntity<>("Record Deleted", HttpStatus.OK);
     }
 }

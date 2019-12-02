@@ -1,6 +1,7 @@
 package com.ismav.ems.service;
 
 import com.ismav.ems.model.EmployeeInfo;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface EmployeeService {
     EmployeeInfo updateEmployee(EmployeeInfo employeeInfo, Long id);
     EmployeeInfo retrieveEmployee(Long id);
     List<EmployeeInfo> retrieveAll();
-    void deleteEmployee(Long id);
+    ResponseEntity<Object> deleteEmployee(Long id);
 }

@@ -5,6 +5,7 @@ import com.ismav.ems.repository.EmployeeRepository;
 import com.ismav.ems.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,8 +38,8 @@ public class EmployeeResource {
     }
 
     @DeleteMapping("/employee/{id}")
-    private void deleteEmployee(@PathVariable Long id){
-        service.deleteEmployee(id);
+    private ResponseEntity<Object> deleteEmployee(@PathVariable Long id){
+       return service.deleteEmployee(id);
     }
 
     @GetMapping("/employee/{id}")
