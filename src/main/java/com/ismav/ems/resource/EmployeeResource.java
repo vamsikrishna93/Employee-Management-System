@@ -21,32 +21,32 @@ public class EmployeeResource {
     private EmployeeService service;
 
     @GetMapping("/health-check")
-    private String getHealthCheck(){
+    private String getHealthCheck() {
         return "Ok";
     }
 
     @PostMapping("/employee")
-    private EmployeeInfo createEmployee(@RequestBody @Valid EmployeeInfo employeeInfo) throws Exception{
+    private EmployeeInfo createEmployee(@RequestBody @Valid EmployeeInfo employeeInfo) throws Exception {
         return service.createEmployee(employeeInfo);
     }
 
     @PutMapping("/employee/{id}")
-    private EmployeeInfo updateEmployee(@RequestBody @Valid EmployeeInfo employeeInfo, @PathVariable Long id) throws Exception{
-        return service.updateEmployee(employeeInfo,id);
+    private EmployeeInfo updateEmployee(@RequestBody @Valid EmployeeInfo employeeInfo, @PathVariable Long id) throws Exception {
+        return service.updateEmployee(employeeInfo, id);
     }
 
     @DeleteMapping("/employee/{id}")
     private ResponseEntity<Object> deleteEmployee(@PathVariable Long id) throws Exception {
-       return service.deleteEmployee(id);
+        return service.deleteEmployee(id);
     }
 
     @GetMapping("/employee/{id}")
-    private EmployeeInfo retrieveEmployee(@PathVariable Long id){
+    private EmployeeInfo retrieveEmployee(@PathVariable Long id) {
         return service.retrieveEmployee(id);
     }
 
     @GetMapping("/employee")
-    private List<EmployeeInfo> retrieveAllEmployees(){
+    private List<EmployeeInfo> retrieveAllEmployees() {
         return service.retrieveAll();
     }
 
