@@ -1,11 +1,12 @@
 package com.ismav.ems.service;
 
-import com.ismav.ems.exception.CustomBadRequestException;
+import com.ismav.ems.common.CommonConstants;
 import com.ismav.ems.exception.CustomConflictException;
 import com.ismav.ems.exception.CustomException;
 import com.ismav.ems.model.EmployeeInfo;
 import com.ismav.ems.repository.EmployeeRepository;
-import net.bytebuddy.implementation.bytecode.Throw;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
+    String CLASS_NAME = "EmployeeServiceImpl";
 
     @Autowired
     private EmployeeRepository repository;
 
+    private final Logger logger = LogManager.getLogger(EmployeeServiceImpl.class);
+
     @Override
     public EmployeeInfo createEmployee(EmployeeInfo employeeInfo) throws Exception {
+        String METHOD_NAME = "createEmployee";
+        logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_IN);
         try {
-            return repository.save(employeeInfo);
+            EmployeeInfo employeeInfoResponse = repository.save(employeeInfo);
+            logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_OUT);
+            return employeeInfoResponse;
         } catch (Exception e) {
             throw new CustomException("URL not found");
         }
