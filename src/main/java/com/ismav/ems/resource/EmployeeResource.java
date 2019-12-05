@@ -48,7 +48,7 @@ public class EmployeeResource {
     }
 
     @GetMapping("/employee/{id}")
-    private EmployeeInfo retrieveEmployee(@PathVariable Long id) {
+    private EmployeeInfo retrieveEmployee(@PathVariable Long id) throws Exception {
         logger.info("Retrieving EmployeeInfo of Id: {} " ,+id);
         return service.retrieveEmployee(id);
     }

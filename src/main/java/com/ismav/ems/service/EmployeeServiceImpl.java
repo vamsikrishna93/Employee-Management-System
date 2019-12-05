@@ -37,7 +37,8 @@ public class EmployeeServiceImpl implements EmployeeService {
             logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_OUT);
             return employeeInfoResponse;
         } catch (Exception e) {
-            throw new CustomException("URL not found");
+            logger.info("Something went wrong");
+            throw new CustomException("Something went wrong");
         }
 
     }
@@ -45,36 +46,60 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeInfo updateEmployee(EmployeeInfo employeeInfo, Long id) throws Exception {
         try {
+            String METHOD_NAME = "updateEmployee";
+            logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_IN);
             EmployeeInfo employeeData = repository.findById(id).get();
             employeeInfo.setEmployeeId(id);
             if (!employeeData.equals(employeeInfo)) {
+                logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_OUT);
                 return repository.save(employeeInfo);
             } else {
                 System.out.println("Update not required");
             }
+            logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_OUT);
             return null;
         } catch (NoSuchElementException ex) {
+            logger.info("There is no such ID in the DB");
             throw new CustomConflictException("There is no such ID in the DB");
-        } catch (Exception e) {
-            throw new CustomException("URL not found");
+        } catch (Exception ex) {
+            logger.info("Something went wrong");
+            throw new CustomException("Something went wrong");
         }
     }
 
 
     @Override
-    public EmployeeInfo retrieveEmployee(Long id) {
-        return repository.findById(id).get();
+    public EmployeeInfo retrieveEmployee(Long id) throws Exception {
+        try{
+            String METHOD_NAME = "retrieveEmployee";
+            logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_IN);
+            EmployeeInfo employeeInfo = repository.findById(id).get();
+            logger.info("{} , {} , {} ", CLASS_NAME, METHOD_NAME, CommonConstants.METHOD_OUT);
+            return employeeInfo;
+        }catch (NoSuchElementException ex) {
+            logger.info("There is no such ID in the DB");
+            throw new CustomConflictException("There is no such ID in the DB");
+        } catch (Exception ex) {
+            logger.info("Something went wrong");
+            throw new CustomException("Something went wrong");
+        }
+
     }
 
     @Override
     public List<EmployeeInfo> retrieveAll() {
-        Iterable<EmployeeInfo> employeeList = repository.findAll();
-        List<EmployeeInfo> employeeInfos = new ArrayList<>();
-        for (EmployeeInfo info : employeeList
-        ) {
-            employeeInfos.add(info);
+        try{
+            Iterable<EmployeeInfo> employeeList = repository.findAll();
+            List<EmployeeInfo> employeeInfos = new ArrayList<>();
+            for (EmployeeInfo info : employeeList
+            ) {
+                employeeInfos.add(info);
+            }
+            return employeeInfos;
+        }catch (Exception ex){
+            throw ex;
         }
-        return employeeInfos;
+
     }
 
     @Override
@@ -84,7 +109,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             return new ResponseEntity<>("Record Deleted", HttpStatus.OK);
         } catch (EmptyResultDataAccessException ex) {
             throw new CustomConflictException("Record not present in the DB");
-        } catch (Exception e) {
+        } catch (Exception ex) {
             throw new CustomException("URL IS WRONG");
         }
 

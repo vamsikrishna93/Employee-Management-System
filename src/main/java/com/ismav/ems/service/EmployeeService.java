@@ -10,7 +10,7 @@ public interface EmployeeService {
 
     EmployeeInfo updateEmployee(EmployeeInfo employeeInfo, Long id) throws Exception;
 
-    EmployeeInfo retrieveEmployee(Long id);
+    EmployeeInfo retrieveEmployee(Long id) throws Exception;
 
     List<EmployeeInfo> retrieveAll();
 
