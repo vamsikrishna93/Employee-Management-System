@@ -8,7 +8,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 
 public class FunctionalTest {
@@ -30,14 +30,15 @@ public class FunctionalTest {
     JsonNode jsonObjectError = mapperError.readTree(jsonStringError);
 
     @Test
-    public void d_retrieveEmployeeInfoTest() {
+    public void retrieveEmployeeInfoTest() {
         Response response = RestAssured.get("http://localhost:8181/api/ems/employee");
         System.out.println(response.getBody().asString());
         Assert.assertEquals(response.getStatusCode(), 200);
     }
 
-    @Test
-    public void a_createEmployeeInfoBodyTest() {
+
+    @BeforeTest
+    public void createEmployeeInfoBodyTest() {
         RequestSpecification request = RestAssured.given();
         request.body(jsonObject);
         request.header("Content-type", "application/json");
@@ -49,7 +50,7 @@ public class FunctionalTest {
     }
 
     @Test
-    public void c_retrieveEmployeeById() {
+    public void retrieveEmployeeById() {
         Response response = RestAssured.get("http://localhost:8181/api/ems/employee/"+EMPLOYEE_ID);
         JsonPath body = response.jsonPath();
         System.out.println(body.get("employeeId").toString());
@@ -66,7 +67,7 @@ public class FunctionalTest {
     }
 
     @Test
-    public void b_updateEmployeeTest() {
+    public void updateEmployeeTest() {
         RequestSpecification request = RestAssured.given();
         request.body(jsonObjectUpdate);
         request.header("Content-type", "application/json");
@@ -75,8 +76,9 @@ public class FunctionalTest {
 
     }
 
-    @Test
-    public void e_deleteEmployeeInfoTest() {
+
+    @AfterTest
+    public void deleteEmployeeInfoTest() {
         Response response = RestAssured.delete("http://localhost:8181/api/ems/employee/" + EMPLOYEE_ID);
         String res = response.getBody().asString();
         Assert.assertEquals(res, "Record Deleted");
