@@ -29,7 +29,7 @@ public class FunctionalTest {
     ObjectMapper mapperError = new ObjectMapper();
     JsonNode jsonObjectError = mapperError.readTree(jsonStringError);
 
-    @Test
+    @Test(priority = 5)
     public void retrieveEmployeeInfoTest() {
         Response response = RestAssured.get("http://localhost:8181/api/ems/employee");
         System.out.println(response.getBody().asString());
@@ -37,7 +37,7 @@ public class FunctionalTest {
     }
 
 
-    @BeforeTest
+    @Test(priority = 0)
     public void createEmployeeInfoBodyTest() {
         RequestSpecification request = RestAssured.given();
         request.body(jsonObject);
@@ -49,7 +49,7 @@ public class FunctionalTest {
 
     }
 
-    @Test
+    @Test(priority = 2)
     public void retrieveEmployeeById() {
         Response response = RestAssured.get("http://localhost:8181/api/ems/employee/"+EMPLOYEE_ID);
         JsonPath body = response.jsonPath();
@@ -57,7 +57,7 @@ public class FunctionalTest {
         Assert.assertEquals(Integer.valueOf(body.get("employeeId").toString()), Integer.valueOf(EMPLOYEE_ID));
     }
 
-    @Test
+    @Test(priority = 1)
     public void createEmployeeInfoErrorTest() {
         RequestSpecification request = RestAssured.given();
         request.body(jsonObjectError);
@@ -66,7 +66,7 @@ public class FunctionalTest {
         Assert.assertEquals(response.getStatusCode(), 400);
     }
 
-    @Test
+    @Test(priority = 3)
     public void updateEmployeeTest() {
         RequestSpecification request = RestAssured.given();
         request.body(jsonObjectUpdate);
@@ -77,7 +77,7 @@ public class FunctionalTest {
     }
 
 
-    @AfterTest
+    @Test(priority = 4)
     public void deleteEmployeeInfoTest() {
         Response response = RestAssured.delete("http://localhost:8181/api/ems/employee/" + EMPLOYEE_ID);
         String res = response.getBody().asString();
